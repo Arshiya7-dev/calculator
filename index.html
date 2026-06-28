@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calc/01</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Rajdhani:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --forge-darkest: #1a1310;
+            --forge-dark: #241a13;
+            --forge-mid: #3c2a1f;
+            --forge-light: #5c4131;
+            --bronze: #8a6a4a;
+            --bronze-light: #d9a572;
+            --flame-gold: #ffb627;
+            --flame-orange: #ff6b1a;
+            --flame-red: #e63312;
+            --ash: #f5ead8;
+            --ash-dim: #b89a82;
+            --pilot-blue: #7ec8ff;
+            --edge: #120c08;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        @keyframes ember-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 2px 0 #a8270c, 0 4px 14px -1px rgba(255, 107, 26, 0.45), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+            }
+
+            50% {
+                box-shadow: 0 2px 0 #a8270c, 0 6px 22px 2px rgba(255, 138, 46, 0.7), 0 1px 0 rgba(255, 255, 255, 0.35) inset;
+            }
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--forge-darkest);
+            background-image:
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 107, 26, 0.12), transparent),
+                repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15) 0px, rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 3px);
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ---- Outer casing ---- */
+        .casing {
+            background: linear-gradient(155deg, #5c4131 0%, #3c2a1f 55%, #241a13 100%);
+            border: 1px solid var(--edge);
+            box-shadow:
+                0 1px 0 rgba(255, 210, 170, 0.08) inset,
+                0 30px 60px -20px rgba(0, 0, 0, 0.6),
+                0 8px 20px -4px rgba(0, 0, 0, 0.45);
+        }
+
+        .rivet {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #d9a572, #241a13 70%);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.35);
+        }
+
+        /* ---- Screen ---- */
+        .screen-well {
+            background: linear-gradient(180deg, #1c130d, #100b07);
+            border: 1px solid #0a0604;
+            box-shadow:
+                0 2px 8px rgba(20, 10, 5, 0.7) inset,
+                0 -1px 0 rgba(255, 200, 150, 0.05);
+        }
+
+        .display-glow {
+            color: var(--flame-orange);
+            text-shadow: 0 0 8px rgba(255, 107, 26, 0.55), 0 0 22px rgba(255, 107, 26, 0.25);
+        }
+
+        .calc>input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--flame-orange);
+            width: 100%;
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 8px rgba(255, 107, 26, 0.55), 0 0 22px rgba(255, 107, 26, 0.25);
+            caret-color: var(--flame-orange);
+        }
+
+        .calc>input::placeholder {
+            color: rgba(255, 107, 26, 0.3);
+        }
+
+        .result {
+            color: var(--ash-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ---- Keys ---- */
+        .key {
+            position: relative;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--ash);
+            background: linear-gradient(180deg, var(--forge-light), var(--forge-mid) 60%, var(--forge-dark) 100%);
+            border: 1px solid var(--edge);
+            border-top-color: rgba(255, 210, 170, 0.12);
+            box-shadow:
+                0 2px 0 var(--edge),
+                0 4px 6px -1px rgba(0, 0, 0, 0.45),
+                0 1px 0 rgba(255, 210, 170, 0.08) inset;
+            transition: transform 0.06s ease, box-shadow 0.06s ease, background 0.1s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .key:hover {
+            background: linear-gradient(180deg, #6e4f3c, #4a3528 60%, #2e2118 100%);
+        }
+
+        .key:active {
+            transform: translateY(2px);
+            box-shadow:
+                0 0 0 var(--edge),
+                0 1px 2px rgba(0, 0, 0, 0.5),
+                0 1px 0 rgba(255, 210, 170, 0.06) inset;
+        }
+
+        .key:focus-visible {
+            outline: 2px solid var(--flame-orange);
+            outline-offset: 2px;
+        }
+
+        .key-op {
+            color: var(--flame-orange);
+            background: linear-gradient(180deg, #5a3420, #4a2818 60%, #3c2014 100%);
+            border-top-color: rgba(255, 107, 26, 0.25);
+        }
+
+        .key-op:hover {
+            background: linear-gradient(180deg, #6c4128, #5a3420 60%, #4a2818 100%);
+        }
+
+        .key-func {
+            color: var(--ash-dim);
+            font-size: 0.85rem;
+        }
+
+        /* signature element: a slow ember-pulse glow at rest,
+           paused on hover/active so the press feedback stays crisp */
+        .key-equal {
+            background: linear-gradient(160deg, var(--flame-gold) 0%, var(--flame-orange) 45%, var(--flame-red) 100%);
+            color: #2a0f04;
+            border-top-color: rgba(255, 255, 255, 0.4);
+            animation: ember-pulse 2.6s ease-in-out infinite;
+        }
+
+        .key-equal:hover {
+            background: linear-gradient(160deg, #ffcc5c 0%, #ff8a3d 45%, #f2410f 100%);
+            animation: none;
+        }
+
+        .key-equal:active {
+            animation: none;
+            box-shadow:
+                0 0 0 #a8270c,
+                0 1px 4px rgba(255, 107, 26, 0.45),
+                0 1px 0 rgba(255, 255, 255, 0.25) inset;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .key-equal {
+                animation: none;
+                box-shadow:
+                    0 2px 0 #a8270c,
+                    0 4px 14px -1px rgba(255, 107, 26, 0.45),
+                    0 1px 0 rgba(255, 255, 255, 0.3) inset;
+            }
+        }
+
+        .key-clear {
+            color: var(--flame-red);
+        }
+
+        /* ---- Misc ---- */
+        .label-eyebrow {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.66rem;
+            color: var(--ash-dim);
+        }
+
+        .vent {
+            background: repeating-linear-gradient(90deg, var(--bronze) 0px, var(--bronze) 2px, transparent 2px, transparent 6px);
+            opacity: 0.45;
+            height: 3px;
+        }
+
+        .power-led {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--pilot-blue);
+            box-shadow: 0 0 6px var(--pilot-blue), 0 0 2px var(--pilot-blue);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center gap-12 p-6">
+
+    <div class="casing rounded-[28px] p-5 sm:p-6 w-full max-w-[360px] relative">
+
+        <!-- rivets -->
+        <div class="rivet absolute top-4 left-4"></div>
+        <div class="rivet absolute top-4 right-4"></div>
+        <div class="rivet absolute bottom-4 left-4"></div>
+        <div class="rivet absolute bottom-4 right-4"></div>
+
+        <!-- header strip -->
+        <div class="flex items-center justify-between px-1 mb-4">
+            <div class="flex items-center gap-2">
+                <span class="power-led"></span>
+                <span class="label-eyebrow">CALC&nbsp;/&nbsp;01</span>
+            </div>
+            <span class="label-eyebrow opacity-60">MODEL&nbsp;X-9</span>
+        </div>
+
+        <div class="vent rounded-full mb-4 mx-1"></div>
+
+        <!-- screen -->
+        <div class="calc screen-well rounded-2xl px-4 pt-4 pb-3 mb-5">
+            <div class="result mono text-right text-sm h-5 mb-1 tracking-wide opacity-80">&nbsp;</div>
+            <input type="text" inputmode="decimal" placeholder="0" class="text-3xl sm:text-4xl py-1">
+        </div>
+
+        <!-- keypad -->
+        <div class="grid grid-cols-4 gap-2.5">
+
+            <button onclick="clearAll()" class="key key-clear rounded-xl h-14 text-sm tracking-wide">AC</button>
+            <button onclick="toggleSign()" class="key key-func rounded-xl h-14">+/−</button>
+            <button onclick="percent()" class="key key-func rounded-xl h-14">%</button>
+            <button onclick="op('/')" class="key key-op rounded-xl h-14 text-xl">÷</button>
+
+            <button onclick="para(event)" class="key rounded-xl h-14 text-lg">7</button>
+            <button onclick="para(event)" class="key rounded-xl h-14 text-lg">8</button>
+            <button onclick="para(event)" class="key rounded-xl h-14 text-lg">9</button>
+            <button onclick="op('*')" class="key key-op rounded-xl h-14 text-xl">×</button>
+
+            <button onclick="para(event)" class="key rounded-xl h-14 text-lg">4</button>
+            <button onclick="para(event)" class="key rounded-xl h-14 text-lg">5</button>
+            <button onclick="para(event)" class="key rounded-xl h-14 text-lg">6</button>
+            <button onclick="op('-')" class="key key-op rounded-xl h-14 text-xl">−</button>
+
+            <button onclick="para(event)" class="key rounded-xl h-14 text-lg">1</button>
+            <button onclick="para(event)" class="key rounded-xl h-14 text-lg">2</button>
+            <button onclick="para(event)" class="key rounded-xl h-14 text-lg">3</button>
+            <button onclick="op('+')" class="key key-op rounded-xl h-14 text-xl">+</button>
+
+            <button onclick="para(event)" class="key rounded-xl h-14 col-span-2 text-lg">0</button>
+            <button onclick="para(event)" class="key rounded-xl h-14 text-lg">.</button>
+            <button onclick="Equal()" class="key key-equal rounded-xl h-14 text-xl">=</button>
+
+        </div>
+
+        <div class="flex items-center justify-between px-1 mt-4">
+            <span class="label-eyebrow opacity-50">SN&nbsp;004471</span>
+            <span class="label-eyebrow opacity-50">±0.0001</span>
+        </div>
+
+    </div>
+</body>
+<script src="asset/javascript/master.js"></script>
+
+</html>

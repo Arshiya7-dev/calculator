@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@layer base {
+    :root {
+        --forge-darkest: #1a1310;
+        /* page background */
+        --forge-dark: #241a13;
+        /* key bottom stop / casing darkest */
+        --forge-mid: #3c2a1f;
+        /* key mid stop */
+        --forge-light: #5c4131;
+        /* key top highlight / casing lightest */
+        --bronze: #8a6a4a;
+        /* vents, mid metal accents */
+        --bronze-light: #d9a572;
+        /* rivet highlight */
+        --flame-gold: #ffb627;
+        /* hottest point of the flame gradient */
+        --flame-orange: #ff6b1a;
+        /* primary accent */
+        --flame-red: #e63312;
+        /* coolest point of the flame gradient */
+        --ash: #f5ead8;
+        /* primary light text, warm off-white */
+        --ash-dim: #b89a82;
+        /* secondary/label text */
+        --pilot-blue: #7ec8ff;
+        /* the one cool note: a gas-flame pilot light */
+        --edge: #120c08;
+        /* hairline borders, darkest warm-black */
+    }
+
+    @keyframes ember-pulse {
+
+        0%,
+        100% {
+            box-shadow: 0 2px 0 #a8270c, 0 4px 14px -1px rgba(255, 107, 26, 0.45), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+        }
+
+        50% {
+            box-shadow: 0 2px 0 #a8270c, 0 6px 22px 2px rgba(255, 138, 46, 0.7), 0 1px 0 rgba(255, 255, 255, 0.35) inset;
+        }
+    }
+
+    body {
+        @apply font-['Space_Grotesk', sans-serif] bg-[var(--forge-darkest)] bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%, rgba(255, 107, 26, 0.12), transparent), repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15)_0px, rgba(0, 0, 0, 0.15)_1px, transparent_1px, transparent_3px)];
+    }
+}
+
+@layer components {
+
+    .casing {
+        @apply border border-[var(--edge)] bg-[linear-gradient(155deg, #5c4131_0%, #3c2a1f_55%, #241a13_100%)] shadow-[0_1px_0_rgba(255, 210, 170, 0.08)_inset, 0_30px_60px_-20px_rgba(0, 0, 0, 0.6), 0_8px_20px_-4px_rgba(0, 0, 0, 0.45)];
+    }
+
+    .rivet {
+        @apply w-[7px] h-[7px] rounded-full bg-[radial-gradient(circle_at_35%_30%, #d9a572, #241a13_70%)] shadow-[0_1px_1px_rgba(0, 0, 0, 0.5), 0_0_0_1px_rgba(0, 0, 0, 0.35)];
+    }
+
+    .screen-well {
+        @apply border border-[#0a0604] bg-[linear-gradient(180deg, #1c130d, #100b07)] shadow-[0_2px_8px_rgba(20, 10, 5, 0.7)_inset, 0_-1px_0_rgba(255, 200, 150, 0.05)];
+    }
+
+    .calc>input {
+        @apply bg-transparent border-none outline-none w-full text-right text-[var(--flame-orange)] caret-[var(--flame-orange)] font-['JetBrains_Mono', monospace] [text-shadow:0_0_8px_rgba(255, 107, 26, 0.55), 0_0_22px_rgba(255, 107, 26, 0.25)] placeholder:text-[rgba(255, 107, 26, 0.3)];
+    }
+
+    .result {
+        @apply text-[var(--ash-dim)] font-['JetBrains_Mono', monospace];
+    }
+
+    .key {
+        @apply relative select-none font-['JetBrains_Mono', monospace] font-semibold text-[var(--ash)] border border-[var(--edge)] border-t-[rgba(255, 210, 170, 0.12)] bg-[linear-gradient(180deg, var(--forge-light), var(--forge-mid)_60%, var(--forge-dark)_100%)] shadow-[0_2px_0_var(--edge), 0_4px_6px_-1px_rgba(0, 0, 0, 0.45), 0_1px_0_rgba(255, 210, 170, 0.08)_inset] [-webkit-tap-highlight-color:transparent] [transition:transform_0.06s_ease, box-shadow_0.06s_ease, background_0.1s_ease] hover:bg-[linear-gradient(180deg, #6e4f3c, #4a3528_60%, #2e2118_100%)] active:translate-y-[2px] active:shadow-[0_0_0_var(--edge), 0_1px_2px_rgba(0, 0, 0, 0.5), 0_1px_0_rgba(255, 210, 170, 0.06)_inset] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--flame-orange)];
+    }
+
+    .key-op {
+        @apply text-[var(--flame-orange)] border-t-[rgba(255, 107, 26, 0.25)] bg-[linear-gradient(180deg, #5a3420, #4a2818_60%, #3c2014_100%)] hover:bg-[linear-gradient(180deg, #6c4128, #5a3420_60%, #4a2818_100%)];
+    }
+
+    .key-func {
+        @apply text-[var(--ash-dim)] text-[0.85rem];
+    }
+
+    /* signature element: a slow ember-pulse glow at rest,
+       paused on hover/active so the press feedback stays crisp */
+    .key-equal {
+        @apply text-[#2a0f04] border-t-[rgba(255, 255, 255, 0.4)] bg-[linear-gradient(160deg, var(--flame-gold)_0%, var(--flame-orange)_45%, var(--flame-red)_100%)] animate-[ember-pulse_2.6s_ease-in-out_infinite] motion-reduce:animate-none hover:animate-none active:animate-none hover:bg-[linear-gradient(160deg, #ffcc5c_0%, #ff8a3d_45%, #f2410f_100%)] active:shadow-[0_0_0_#a8270c, 0_1px_4px_rgba(255, 107, 26, 0.45), 0_1px_0_rgba(255, 255, 255, 0.25)_inset];
+    }
+
+    .key-clear {
+        @apply text-[var(--flame-red)];
+    }
+
+    .label-eyebrow {
+        @apply font-['Rajdhani', sans-serif] font-bold uppercase tracking-[0.18em] text-[0.66rem] text-[var(--ash-dim)];
+    }
+
+    .vent {
+        @apply h-[3px] opacity-45 bg-[repeating-linear-gradient(90deg, var(--bronze)_0px, var(--bronze)_2px, transparent_2px, transparent_6px)];
+    }
+
+    .power-led {
+        @apply w-[6px] h-[6px] rounded-full bg-[var(--pilot-blue)] shadow-[0_0_6px_var(--pilot-blue), 0_0_2px_var(--pilot-blue)];
+    }
+}
+
+@layer utilities {
+    .mono {
+        @apply font-['JetBrains_Mono', monospace];
+    }
+
+    .display-glow {
+        @apply text-[var(--flame-orange)] [text-shadow:0_0_8px_rgba(255, 107, 26, 0.55), 0_0_22px_rgba(255, 107, 26, 0.25)];
+    }
+}
+
+/* npx @tailwindcss/cli -i ./asset/stylesheet/main.css -o ./asset/stylesheet/output.css --watch */
