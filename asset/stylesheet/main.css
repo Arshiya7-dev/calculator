@@ -1,221 +1,207 @@
 @import "tailwindcss";
 
-@import "tailwindcss";
-
-/* ==================================================================
-   THEME (معادل tailwind.config.js در نسخه 4 — متغیرها، فونت‌ها و انیمیشن)
-   ================================================================== */
 @theme {
-  --color-forge-darkest: #1a1310;
-  --color-forge-dark: #241a13;
-  --color-forge-mid: #3c2a1f;
-  --color-forge-light: #5c4131;
-  --color-bronze: #8a6a4a;
-  --color-bronze-light: #d9a572;
-  --color-flame-gold: #ffb627;
-  --color-flame-orange: #ff6b1a;
-  --color-flame-red: #e63312;
-  --color-ash: #f5ead8;
-  --color-ash-dim: #b89a82;
-  --color-pilot-blue: #7ec8ff;
-  --color-edge: #120c08;
+    --color-forge-darkest: #1a1310;
+    --color-forge-dark: #241a13;
+    --color-forge-mid: #3c2a1f;
+    --color-forge-light: #5c4131;
+    --color-bronze: #8a6a4a;
+    --color-bronze-light: #d9a572;
+    --color-flame-gold: #ffb627;
+    --color-flame-orange: #ff6b1a;
+    --color-flame-red: #e63312;
+    --color-ash: #f5ead8;
+    --color-ash-dim: #b89a82;
+    --color-pilot-blue: #7ec8ff;
+    --color-edge: #120c08;
 
-  --font-sans: 'Space Grotesk', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-eyebrow: 'Rajdhani', sans-serif;
+    --font-sans: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-eyebrow: 'Rajdhani', sans-serif;
 
-  --animate-ember-pulse: ember-pulse 2.6s ease-in-out infinite;
+    --animate-ember-pulse: ember-pulse 2.6s ease-in-out infinite;
 
-  @keyframes ember-pulse {
-    0%, 100% {
-      box-shadow: 0 2px 0 #a8270c, 0 4px 14px -1px rgba(255, 107, 26, 0.45), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    @keyframes ember-pulse {
+
+        0%,
+        100% {
+            box-shadow: 0 2px 0 #a8270c, 0 4px 14px -1px rgba(255, 107, 26, 0.45), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+        }
+
+        50% {
+            box-shadow: 0 2px 0 #a8270c, 0 6px 22px 2px rgba(255, 138, 46, 0.7), 0 1px 0 rgba(255, 255, 255, 0.35) inset;
+        }
     }
-    50% {
-      box-shadow: 0 2px 0 #a8270c, 0 6px 22px 2px rgba(255, 138, 46, 0.7), 0 1px 0 rgba(255, 255, 255, 0.35) inset;
-    }
-  }
 }
 
-/* ==================================================================
-   BASE LAYER
-   استایل‌های پایه و گلوبال
-   ================================================================== */
 @layer base {
-  * {
-    @apply box-border;
-  }
-
-  body {
-    @apply font-sans bg-forge-darkest;
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 107, 26, 0.12), transparent),
-      repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15) 0px, rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 3px);
-  }
-
-  .calc > input::placeholder {
-    color: rgba(255, 107, 26, 0.3);
-  }
-}
-
-/* ==================================================================
-   COMPONENTS LAYER
-   کلاس‌های کامپوننتی (کلید‌ها، صفحه‌نمایش، بدنه دستگاه و...)
-   ================================================================== */
-@layer components {
-  /* ---- فونت مونو کمکی ---- */
-  .mono {
-    @apply font-mono;
-  }
-
-  /* ---- بدنه بیرونی دستگاه ---- */
-  .casing {
-    @apply border border-edge;
-    background: linear-gradient(155deg, var(--color-forge-light) 0%, var(--color-forge-mid) 55%, var(--color-forge-dark) 100%);
-    box-shadow:
-      0 1px 0 rgba(255, 210, 170, 0.08) inset,
-      0 30px 60px -20px rgba(0, 0, 0, 0.6),
-      0 8px 20px -4px rgba(0, 0, 0, 0.45);
-  }
-
-  .rivet {
-    @apply w-[7px] h-[7px] rounded-full;
-    background: radial-gradient(circle at 35% 30%, var(--color-bronze-light), var(--color-forge-dark) 70%);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.35);
-  }
-
-  /* ---- صفحه نمایش ---- */
-  .screen-well {
-    @apply border;
-    border-color: #0a0604;
-    background: linear-gradient(180deg, #1c130d, #100b07);
-    box-shadow:
-      0 2px 8px rgba(20, 10, 5, 0.7) inset,
-      0 -1px 0 rgba(255, 200, 150, 0.05);
-  }
-
-  .display-glow {
-    @apply text-flame-orange;
-    text-shadow: 0 0 8px rgba(255, 107, 26, 0.55), 0 0 22px rgba(255, 107, 26, 0.25);
-  }
-
-  .calc > input {
-    @apply bg-transparent border-none outline-none text-flame-orange w-full text-right font-mono;
-    text-shadow: 0 0 8px rgba(255, 107, 26, 0.55), 0 0 22px rgba(255, 107, 26, 0.25);
-    caret-color: var(--color-flame-orange);
-  }
-
-  .result {
-    @apply text-ash-dim font-mono;
-  }
-
-  /* ---- کلید‌ها ---- */
-  .key {
-    @apply relative font-mono font-semibold text-ash border select-none;
-    background: linear-gradient(180deg, var(--color-forge-light), var(--color-forge-mid) 60%, var(--color-forge-dark) 100%);
-    border-color: var(--color-edge);
-    border-top-color: rgba(255, 210, 170, 0.12);
-    box-shadow:
-      0 2px 0 var(--color-edge),
-      0 4px 6px -1px rgba(0, 0, 0, 0.45),
-      0 1px 0 rgba(255, 210, 170, 0.08) inset;
-    transition: transform 0.06s ease, box-shadow 0.06s ease, background-color 0.1s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .key:hover {
-    background: linear-gradient(180deg, #6e4f3c, #4a3528 60%, #2e2118 100%);
-  }
-
-  .key:active {
-    @apply translate-y-[2px];
-    box-shadow:
-      0 0 0 var(--color-edge),
-      0 1px 2px rgba(0, 0, 0, 0.5),
-      0 1px 0 rgba(255, 210, 170, 0.06) inset;
-  }
-
-  .key:focus-visible {
-    @apply outline outline-2 outline-offset-2;
-    outline-color: var(--color-flame-orange);
-  }
-
-  .key-op {
-    @apply text-flame-orange;
-    background: linear-gradient(180deg, #5a3420, #4a2818 60%, #3c2014 100%);
-    border-top-color: rgba(255, 107, 26, 0.25);
-  }
-
-  .key-op:hover {
-    background: linear-gradient(180deg, #6c4128, #5a3420 60%, #4a2818 100%);
-  }
-
-  .key-func {
-    @apply text-ash-dim text-[0.85rem];
-  }
-
-  /* عنصر شاخص: درخشش آرام ember-pulse در حالت سکون،
-     که هنگام هاور/کلیک متوقف می‌شود تا فیدبک فشردن واضح بماند */
-  .key-equal {
-    @apply text-[#2a0f04] animate-ember-pulse;
-    background: linear-gradient(160deg, var(--color-flame-gold) 0%, var(--color-flame-orange) 45%, var(--color-flame-red) 100%);
-    border-top-color: rgba(255, 255, 255, 0.4);
-  }
-
-  .key-equal:hover {
-    @apply animate-none;
-    background: linear-gradient(160deg, #ffcc5c 0%, #ff8a3d 45%, #f2410f 100%);
-  }
-
-  .key-equal:active {
-    @apply animate-none;
-    box-shadow:
-      0 0 0 #a8270c,
-      0 1px 4px rgba(255, 107, 26, 0.45),
-      0 1px 0 rgba(255, 255, 255, 0.25) inset;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .key-equal {
-      @apply animate-none;
-      box-shadow:
-        0 2px 0 #a8270c,
-        0 4px 14px -1px rgba(255, 107, 26, 0.45),
-        0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    * {
+        @apply box-border;
     }
-  }
 
-  .key-clear {
-    @apply text-flame-red;
-  }
+    body {
+        @apply font-sans bg-forge-darkest;
+        background-image:
+            radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 107, 26, 0.12), transparent),
+            repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15) 0px, rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 3px);
+    }
 
-  /* ---- متفرقه ---- */
-  .label-eyebrow {
-    @apply font-eyebrow font-bold uppercase tracking-[0.18em] text-[0.66rem] text-ash-dim;
-  }
-
-  .vent {
-    @apply opacity-45 h-[3px];
-    background: repeating-linear-gradient(90deg, var(--color-bronze) 0px, var(--color-bronze) 2px, transparent 2px, transparent 6px);
-  }
-
-  .power-led {
-    @apply w-[6px] h-[6px] rounded-full bg-pilot-blue;
-    box-shadow: 0 0 6px var(--color-pilot-blue), 0 0 2px var(--color-pilot-blue);
-  }
+    .calc>input::placeholder {
+        color: rgba(255, 107, 26, 0.3);
+    }
 }
 
-/* ==================================================================
-   UTILITIES LAYER
-   کلاس‌های یوتیلیتی کوچک و تکرارشونده که ممکنه جای دیگه هم لازم باشن
-   ================================================================== */
-@layer utilities {
-  .text-glow-flame {
-    text-shadow: 0 0 8px rgba(255, 107, 26, 0.55), 0 0 22px rgba(255, 107, 26, 0.25);
-  }
+@layer components {
 
-  .tap-transparent {
-    -webkit-tap-highlight-color: transparent;
-  }
+    .mono {
+        @apply font-mono;
+    }
+
+    /* ---- بدنه بیرونی دستگاه ---- */
+    .casing {
+        @apply border border-edge;
+        background: linear-gradient(155deg, var(--color-forge-light) 0%, var(--color-forge-mid) 55%, var(--color-forge-dark) 100%);
+        box-shadow:
+            0 1px 0 rgba(255, 210, 170, 0.08) inset,
+            0 30px 60px -20px rgba(0, 0, 0, 0.6),
+            0 8px 20px -4px rgba(0, 0, 0, 0.45);
+    }
+
+    .rivet {
+        @apply w-[7px] h-[7px] rounded-full;
+        background: radial-gradient(circle at 35% 30%, var(--color-bronze-light), var(--color-forge-dark) 70%);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.35);
+    }
+
+    /* ---- صفحه نمایش ---- */
+    .screen-well {
+        @apply border;
+        border-color: #0a0604;
+        background: linear-gradient(180deg, #1c130d, #100b07);
+        box-shadow:
+            0 2px 8px rgba(20, 10, 5, 0.7) inset,
+            0 -1px 0 rgba(255, 200, 150, 0.05);
+    }
+
+    .display-glow {
+        @apply text-flame-orange;
+        text-shadow: 0 0 8px rgba(255, 107, 26, 0.55), 0 0 22px rgba(255, 107, 26, 0.25);
+    }
+
+    .calc>input {
+        @apply bg-transparent border-none outline-none text-flame-orange w-full text-right font-mono;
+        text-shadow: 0 0 8px rgba(255, 107, 26, 0.55), 0 0 22px rgba(255, 107, 26, 0.25);
+        caret-color: var(--color-flame-orange);
+    }
+
+    .result {
+        @apply text-ash-dim font-mono;
+    }
+
+    /* ---- کلید‌ها ---- */
+    .key {
+        @apply relative font-mono font-semibold text-ash border select-none;
+        background: linear-gradient(180deg, var(--color-forge-light), var(--color-forge-mid) 60%, var(--color-forge-dark) 100%);
+        border-color: var(--color-edge);
+        border-top-color: rgba(255, 210, 170, 0.12);
+        box-shadow:
+            0 2px 0 var(--color-edge),
+            0 4px 6px -1px rgba(0, 0, 0, 0.45),
+            0 1px 0 rgba(255, 210, 170, 0.08) inset;
+        transition: transform 0.06s ease, box-shadow 0.06s ease, background-color 0.1s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .key:hover {
+        background: linear-gradient(180deg, #6e4f3c, #4a3528 60%, #2e2118 100%);
+    }
+
+    .key:active {
+        @apply translate-y-[2px];
+        box-shadow:
+            0 0 0 var(--color-edge),
+            0 1px 2px rgba(0, 0, 0, 0.5),
+            0 1px 0 rgba(255, 210, 170, 0.06) inset;
+    }
+
+    .key:focus-visible {
+        @apply outline outline-2 outline-offset-2;
+        outline-color: var(--color-flame-orange);
+    }
+
+    .key-op {
+        @apply text-flame-orange;
+        background: linear-gradient(180deg, #5a3420, #4a2818 60%, #3c2014 100%);
+        border-top-color: rgba(255, 107, 26, 0.25);
+    }
+
+    .key-op:hover {
+        background: linear-gradient(180deg, #6c4128, #5a3420 60%, #4a2818 100%);
+    }
+
+    .key-func {
+        @apply text-ash-dim text-[0.85rem];
+    }
+
+    /* عنصر شاخص: درخشش آرام ember-pulse در حالت سکون،
+     که هنگام هاور/کلیک متوقف می‌شود تا فیدبک فشردن واضح بماند */
+    .key-equal {
+        @apply text-[#2a0f04] animate-ember-pulse;
+        background: linear-gradient(160deg, var(--color-flame-gold) 0%, var(--color-flame-orange) 45%, var(--color-flame-red) 100%);
+        border-top-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .key-equal:hover {
+        @apply animate-none;
+        background: linear-gradient(160deg, #ffcc5c 0%, #ff8a3d 45%, #f2410f 100%);
+    }
+
+    .key-equal:active {
+        @apply animate-none;
+        box-shadow:
+            0 0 0 #a8270c,
+            0 1px 4px rgba(255, 107, 26, 0.45),
+            0 1px 0 rgba(255, 255, 255, 0.25) inset;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .key-equal {
+            @apply animate-none;
+            box-shadow:
+                0 2px 0 #a8270c,
+                0 4px 14px -1px rgba(255, 107, 26, 0.45),
+                0 1px 0 rgba(255, 255, 255, 0.3) inset;
+        }
+    }
+
+    .key-clear {
+        @apply text-flame-red;
+    }
+
+    /* ---- متفرقه ---- */
+    .label-eyebrow {
+        @apply font-eyebrow font-bold uppercase tracking-[0.18em] text-[0.66rem] text-ash-dim;
+    }
+
+    .vent {
+        @apply opacity-45 h-[3px];
+        background: repeating-linear-gradient(90deg, var(--color-bronze) 0px, var(--color-bronze) 2px, transparent 2px, transparent 6px);
+    }
+
+    .power-led {
+        @apply w-[6px] h-[6px] rounded-full bg-pilot-blue;
+        box-shadow: 0 0 6px var(--color-pilot-blue), 0 0 2px var(--color-pilot-blue);
+    }
+}
+
+@layer utilities {
+    .text-glow-flame {
+        text-shadow: 0 0 8px rgba(255, 107, 26, 0.55), 0 0 22px rgba(255, 107, 26, 0.25);
+    }
+
+    .tap-transparent {
+        -webkit-tap-highlight-color: transparent;
+    }
 }
 
 /* npx @tailwindcss/cli -i ./asset/stylesheet/main.css -o ./asset/stylesheet/output.css --watch */
